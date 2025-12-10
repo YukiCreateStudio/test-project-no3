@@ -44,7 +44,6 @@ export default function Home() {
 
   return (
     <>
-      <Header />
       <section className={styles.top}>
         <div>
           <h1 className={styles.title}>テクノロジーの力で世界を変える</h1>
@@ -67,7 +66,6 @@ export default function Home() {
           <ButtonLink href="/news">もっとみる</ButtonLink>
         </div>
       </section>
-      <Footer />
     </>
   );
 }
