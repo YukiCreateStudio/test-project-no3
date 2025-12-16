@@ -54,6 +54,19 @@ export const getNewsList = async (queries?: MicroCMSQueries) => {
       next: { revalidate: 60 },
     },
   });
-  console.log(listData);
+
   return listData;
+};
+
+export const getNewsDetail = async (
+  contentId: string,
+  queries?: MicroCMSQueries
+) => {
+  const detailData = await client.getListDetail<News>({
+    endpoint: "news",
+    contentId,
+    queries,
+  });
+  // console.log("detailData:",detailData);
+  return detailData;
 };
