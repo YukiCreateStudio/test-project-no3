@@ -1,7 +1,7 @@
 import Image from "next/image";
 import styles from "./page.module.css";
 import ButtonLink from "./_components/ButtonLink";
-import NewsList from "./_components/NewsLinst";
+import NewsList from "./_components/NewsList";
 import { getNewsList, News } from "./_libs/microcms";
 import { TOP_NEWS_LIMIT } from "./_constants";
 

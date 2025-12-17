@@ -54,7 +54,7 @@ export const getNewsList = async (queries?: MicroCMSQueries) => {
       next: { revalidate: 60 },
     },
   });
-
+  console.log("listData:",listData)
   return listData;
 };
 
@@ -69,4 +69,17 @@ export const getNewsDetail = async (
   });
   // console.log("detailData:",detailData);
   return detailData;
+};
+
+export const getCategoryDetail = async (
+  contentId: string,
+  queries?: MicroCMSQueries
+) => {
+  const detailData = await client.getListDetail<Category>({
+    endpoint: "categories",
+    contentId,
+    queries
+  });
+  // console.log("detailData:",detailData)
+  return(detailData)
 };
