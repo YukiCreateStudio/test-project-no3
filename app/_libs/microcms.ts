@@ -54,7 +54,7 @@ export const getNewsList = async (queries?: MicroCMSQueries) => {
       next: { revalidate: 60 },
     },
   });
-  console.log("listData:",listData)
+  // console.log("listData:",listData)
   return listData;
 };
 

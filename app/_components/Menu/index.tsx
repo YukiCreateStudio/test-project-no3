@@ -10,7 +10,7 @@ export default function Menu() {
   const [isOpen, setOpen] = useState<boolean>(false);
   const open = () => {
     setOpen(true);
-    console.log(isOpen);
+    // console.log(isOpen);
   };
   const close = () => setOpen(false);
 

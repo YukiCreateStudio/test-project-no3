@@ -18,7 +18,7 @@ export default function Pagination({
     { length: Math.ceil(totalCount / NEWS_LIST_LIMIT) },
     (_, i) => i + 1
   );
-  console.log(pages);
+  // console.log(pages);
   return (
     <>
       <nav>
