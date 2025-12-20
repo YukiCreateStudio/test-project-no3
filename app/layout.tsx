@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import Header from "./_component/Header";
+import Footer from "./_component/Footer";
 
 export const metadata: Metadata = {
   title: "何回も作るよ",
@@ -13,7 +15,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja">
-      <body>{children}</body>
+      <body>
+        <Header/>
+        {children}
+        <Footer/>
+      </body>
     </html>
   );
 }

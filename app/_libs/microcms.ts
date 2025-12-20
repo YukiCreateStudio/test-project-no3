@@ -11,3 +11,16 @@ export type News = {
 export type CategoryType = {
   name: string;
 };
+
+export type MemberType = {
+  id: string;
+  image:{
+    url:string;
+    width:number;
+    height:number;
+  };
+  name: string;
+  position: string;
+  profile:string;
+
+};
