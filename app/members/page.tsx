@@ -1,35 +1,13 @@
 import Image from "next/image";
-import { MemberType } from "../_libs/microcms";
 import styles from "./page.module.css";
+import { getMembersList } from "../_libs/microcms";
+import { MEMBER_LIST_LIMIT } from "../_constants";
 
-const data: { contents: MemberType[] } = {
-  contents: [
-    {
-      id: "1",
-      image: {
-        url: "/img-member1.jpg",
-        width: 240,
-        height: 240,
-      },
-      name: "aoi",
-      position: "CEO",
-      profile: "最高のちび",
-    },{
-      id:"2",
-      image:{
-        url:"/img-member2.jpg",
-        width:240,
-        height:240,
-      },
-      name:"akiko",
-      position:"mama",
-      profile:"最高の妻",
-    },
-  ],
-};
-
-export default function Page() {
-
+export default async function Page() {
+  const data = await getMembersList({
+    limit: MEMBER_LIST_LIMIT,
+  });
+  console.log(data);
   return (
     <div className={styles.container}>
       {data.contents.length === 0 ? (

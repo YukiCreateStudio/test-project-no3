@@ -2,42 +2,13 @@ import Image from "next/image";
 import styles from "./page.module.css";
 import NewsList from "./_component/NewsList";
 import ButtonLink from "./_component/ButtonLink";
-import { News } from "./_libs/microcms";
+import { getNewsList, News } from "./_libs/microcms";
+import { TOP_NEWS_LIMIT } from "./_constants";
 
-const data: { contents: News[] } = {
-  contents: [
-    {
-      id: "1",
-      title: "渋谷にオフィスを移転しました",
-      category: {
-        name: "更新情報",
-      },
-      publishedAt: "2025/12/17",
-      createdAt: "2025/12/17",
-    },
-    {
-      id: "2",
-      title: "当社CEOが業界リーダーTOP30に選出されました",
-      category: {
-        name: "更新情報",
-      },
-      publishedAt: "2025/12/17",
-      createdAt: "2025/12/17",
-    },
-    {
-      id: "3",
-      title: "テストの記事です。",
-      category: {
-        name: "更新情報",
-      },
-      publishedAt: "2025/12/17",
-      createdAt: "2025/12/17",
-    },
-  ],
-};
-
-export default function Home() {
-  const sliceData = data.contents.slice(0, 2);
+export default async function Home() {
+  const data = await getNewsList({
+    limit: TOP_NEWS_LIMIT,
+  });
   return (
     <>
       <section className={styles.top}>
@@ -57,7 +28,7 @@ export default function Home() {
       </section>
       <section className={styles.news}>
         <h1 className={styles.newsTitle}>News</h1>
-        <NewsList news={sliceData} />
+        <NewsList news={data.contents} />
         <div className={styles.newsLink}>
           <ButtonLink href="/news">もっとみる</ButtonLink>
         </div>
