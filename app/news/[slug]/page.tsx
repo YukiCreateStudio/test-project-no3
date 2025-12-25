@@ -6,14 +6,20 @@ type Props = {
   params: {
     slug: string;
   };
+  searchParams: {
+    dk?: string;
+  };
 };
 
-export default async function Page({ params }: Props) {
-  console.log("params.slug:",params.slug);
-  const data = await getNewsDetail(params.slug).catch(notFound);
+export default async function Page({ params, searchParams }: Props) {
+  console.log("searchParams:", searchParams.dk);
+  const data = await getNewsDetail(params.slug, {
+    draftKey: searchParams.dk,
+  }).catch(notFound);
+  // console.log("data:", data);
   return (
     <>
-      <Article data={data}/>
+      <Article data={data} />
     </>
   );
 }

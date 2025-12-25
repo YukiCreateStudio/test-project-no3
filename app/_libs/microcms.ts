@@ -21,11 +21,12 @@ const client = createClient({
 export type News = {
   title: string;
   category: {
+    id: string;
     name: string;
   };
   thumbnail: MicroCMSImage;
   description: string;
-  contents:string
+  contents: string;
 } & MicroCMSListContent;
 
 export type CategoryType = {
@@ -59,7 +60,7 @@ export const getNewsList = async (queries?: MicroCMSQueries) => {
     endpoint: "news",
     queries,
   });
-  console.log(listData);
+  // console.log(listData);
   return listData;
 };
 
@@ -69,6 +70,19 @@ export const getNewsDetail = async (
 ) => {
   const detailData = await client.getListDetail<News>({
     endpoint: "news",
+    contentId,
+    queries,
+  });
+  // console.log("detailData:", detailData);
+  return detailData;
+};
+
+export const getCategoryDetail = async (
+  contentId: string,
+  queries?: MicroCMSQueries
+) => {
+  const detailData = await client.getListDetail<CategoryType>({
+    endpoint: "categories",
     contentId,
     queries,
   });
