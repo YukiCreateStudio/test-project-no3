@@ -1,10 +1,15 @@
 import Image from "next/image";
 import styles from "./page.module.css";
 import NewsList from "./_component/NewsList";
-import { data } from "./_libs/microcms";
+import { getNewsList } from "./_libs/microcms";
 import ButtonLink from "./_component/ButtonLink";
+import { TOP_NEWS_LIMIT } from "./_constants";
 
-export default function Home() {
+export default async function Home() {
+  const news = await getNewsList({
+    limit: TOP_NEWS_LIMIT,
+    offset: 0,
+  });
   return (
     <>
       <section className={styles.top}>
@@ -24,7 +29,7 @@ export default function Home() {
       </section>
       <section className={styles.news}>
         <h2 className="newsTitle">News</h2>
-        <NewsList news={data.contents} />
+        <NewsList news={news.contents} />
         <div className={styles.newsLink}>
           <ButtonLink href={`/news`}>もっとみる</ButtonLink>
         </div>

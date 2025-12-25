@@ -3,7 +3,6 @@ import { memberData } from "../_libs/microcms";
 import styles from "./page.module.css";
 
 export default function Page() {
-  console.log(memberData.contents);
   // memberData.contents=[]
   return (
     <>

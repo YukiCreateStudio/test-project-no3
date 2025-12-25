@@ -1,6 +1,9 @@
 import Image from "next/image";
 import styles from "./index.module.css";
 import { NewsType } from "@/app/_libs/microcms";
+import CategoryTag from "../CategoryTag";
+import DateTag from "../DateTag";
+import Link from "next/link";
 
 type Props = {
   news: NewsType[];
@@ -12,31 +15,33 @@ export default function NewsList({ news }: Props) {
       <ul>
         {news.map((article) => (
           <li key={article.id} className={styles.list}>
-            <div className={styles.link}>
-              <Image
-                className={styles.image}
-                src="/no-image.png"
-                alt=""
-                width={1200}
-                height={630}
-              />
+            <Link href={`/news/${article.id}`} className={styles.link}>
+              {article.thumbnail ? (
+                <Image
+                  className={styles.image}
+                  src={article.thumbnail.url}
+                  alt=""
+                  width={article.thumbnail.width}
+                  height={article.thumbnail.height}
+                />
+              ) : (
+                <Image
+                  className={styles.image}
+                  src="/no-image.png"
+                  alt=""
+                  width={1200}
+                  height={630}
+                />
+              )}
+
               <dl className={styles.contents}>
                 <dt className={styles.title}>{article.title}</dt>
                 <dd className={styles.meta}>
-                  <span className={styles.tag}>{article.category.name}</span>
-                  <span className={styles.date}>
-                    <Image
-                      src="/clock.svg"
-                      alt=""
-                      width={16}
-                      height={16}
-                      priority
-                    />
-                    {article.publishedAt}
-                  </span>
+                  <CategoryTag category={article.category} />
+                  <DateTag date={article.publishedAt ?? article.createdAt} />
                 </dd>
               </dl>
-            </div>
+            </Link>
           </li>
         ))}
       </ul>

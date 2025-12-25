@@ -1,11 +1,15 @@
 import NewsList from "../_component/NewsList";
-import { data } from "../_libs/microcms";
+import { NEWS_LIST_LIMIT } from "../_constants";
+import { getNewsList } from "../_libs/microcms";
 
-export default function Page() {
-  console.log("data.contents:",data.contents);
+export default async function Page() {
+  const news = await getNewsList({
+    limit: NEWS_LIST_LIMIT,
+    offset: 0,
+  });
   return (
     <>
-      <NewsList news={data.contents} />
+      <NewsList news={news.contents} />
     </>
   );
 }

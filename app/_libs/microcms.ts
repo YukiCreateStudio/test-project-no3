@@ -1,12 +1,22 @@
+import { createClient } from "microcms-js-sdk";
+import type {
+  MicroCMSQueries,
+  MicroCMSImage,
+  MicroCMSListContent,
+  MicroCMSContentId,
+} from "microcms-js-sdk";
+
+export type CategoryType = {
+  name: string;
+} & MicroCMSListContent;
+
 export type NewsType = {
-  id: string;
   title: string;
-  category: {
-    name: string;
-  };
-  publishedAt: string;
-  createdAt: string;
-};
+  description: string;
+  contents: string;
+  thumbnail?: MicroCMSImage;
+  category: CategoryType;
+} & MicroCMSListContent;
 
 export type MemberType = {
   id: string;
@@ -20,36 +30,52 @@ export type MemberType = {
   profile: string;
 };
 
-export const data: { contents: NewsType[] } = {
-  contents: [
-    {
-      id: "1",
-      title: "渋谷にオフィスを移転しました",
-      category: {
-        name: "更新情報",
-      },
-      publishedAt: "2025/12/25",
-      createdAt: "2025/12/25",
-    },
-    {
-      id: "2",
-      title: "当社CEOが業界リーダーTOP３０に選出されました",
-      category: {
-        name: "更新情報",
-      },
-      publishedAt: "2025/12/24",
-      createdAt: "2025/12/24",
-    },
-    {
-      id: "3",
-      title: "これはテスト記事です",
-      category: {
-        name: "更新情報",
-      },
-      publishedAt: "2025/12/23",
-      createdAt: "2025/12/23",
-    },
-  ],
+//microCMSのクライアント設定
+if (!process.env.MICROCMS_DOMAIN) {
+  throw new Error("MICROCMS_DOMAIN is required");
+}
+if (!process.env.MICROCMS_API_KEY) {
+  throw new Error("MICROCMS_API_KEY is required");
+}
+const client = createClient({
+  serviceDomain: process.env.MICROCMS_DOMAIN,
+  apiKey: process.env.MICROCMS_API_KEY,
+});
+
+// NewsListデータ取得
+export const getNewsList = async (queries?: MicroCMSQueries) => {
+  const listData = await client.getList<NewsType>({
+    endpoint: "news",
+    queries,
+  });
+  return listData;
+};
+
+// CategoryListデータ取得
+export const getCategoryDetail = async (
+  contentId: string,
+  queries?: MicroCMSQueries
+) => {
+  const listData = await client.getListDetail<CategoryType>({
+    endpoint: "categories",
+    contentId,
+    queries,
+  });
+  return listData;
+};
+
+// NewsDetailデータ取得
+export const getNewsDetail = async (
+  contentId: string,
+  queries?: MicroCMSQueries
+) => {
+  const listData = await client.getListDetail<NewsType>({
+    endpoint: "news",
+    contentId,
+    queries,
+  });
+  // console.log("listData:",listData)
+  return listData;
 };
 
 export const memberData: { contents: MemberType[] } = {
