@@ -6,7 +6,7 @@ import ButtonLink from "./_component/ButtonLink";
 import { TOP_NEWS_LIMIT } from "./_constants";
 
 export default async function Home() {
-  const news = await getNewsList({
+  const {contents:news} = await getNewsList({
     limit: TOP_NEWS_LIMIT,
     offset: 0,
   });
@@ -29,7 +29,7 @@ export default async function Home() {
       </section>
       <section className={styles.news}>
         <h2 className="newsTitle">News</h2>
-        <NewsList news={news.contents} />
+        <NewsList news={news} />
         <div className={styles.newsLink}>
           <ButtonLink href={`/news`}>もっとみる</ButtonLink>
         </div>
